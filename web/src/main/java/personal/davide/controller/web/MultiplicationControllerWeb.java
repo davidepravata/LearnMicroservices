@@ -1,25 +1,23 @@
-package personal.davide.web;
+package personal.davide.controller.web;
 
-import com.sun.org.apache.xpath.internal.operations.Mult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import personal.davide.multiplication.Multiplication;
+import personal.davide.domain.Multiplication;
 import personal.davide.service.MultiplicationService;
-import personal.davide.service.RandomGeneratorService;
 
 @Controller
 @RequestMapping("/play")
-public class MultiplicationController {
+public class MultiplicationControllerWeb {
 
 
     MultiplicationService multiplicationService;
     Multiplication multiplication;
 
     @Autowired
-    public MultiplicationController(MultiplicationService multiplicationService) {
+    public MultiplicationControllerWeb(MultiplicationService multiplicationService) {
         this.multiplicationService = multiplicationService;
         this.multiplication = multiplicationService.createRandomMultiplication();
     }

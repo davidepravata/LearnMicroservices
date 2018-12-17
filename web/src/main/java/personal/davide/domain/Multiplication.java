@@ -1,4 +1,4 @@
-package personal.davide.multiplication;
+package personal.davide.domain;
 
 public class Multiplication {
 

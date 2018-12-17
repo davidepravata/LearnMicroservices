@@ -1,6 +1,6 @@
 package personal.davide.service;
 
-import personal.davide.multiplication.Multiplication;
+import personal.davide.domain.Multiplication;
 
 public interface MultiplicationService {
 
