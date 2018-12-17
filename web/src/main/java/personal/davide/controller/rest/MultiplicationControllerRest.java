@@ -5,8 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import personal.davide.domain.JSon;
 import personal.davide.domain.Multiplication;
 import personal.davide.service.MultiplicationService;
+
+import java.util.HashMap;
 
 @RestController
 public class MultiplicationControllerRest {
@@ -21,11 +24,13 @@ public class MultiplicationControllerRest {
     }
 
 
-    @GetMapping(path = "/generateMultiplication")
+    @GetMapping(path = "/generateMultiplication", produces = "application/json")
     public String generateMultiplication() {
-        multiplication.getFactorA();
-        multiplication.getFactorB();
-        return "login_question";
+        HashMap<String,String> multiplicationAsJson = new HashMap<>();
+        multiplicationAsJson.put("factorA",String.valueOf(multiplication.getFactorA()));
+        multiplicationAsJson.put("factorB",String.valueOf(multiplication.getFactorB()));
+        JSon json = new JSon();
+        return json.getJSonFromMap(multiplicationAsJson);
     }
 
     @GetMapping(path = "/checkUser")
