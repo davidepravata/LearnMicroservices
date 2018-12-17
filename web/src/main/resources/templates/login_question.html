@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Who you are? Answer the question!</title>
+  </head>
+  
+  <body>
+    <h1>Answer the question as quick as possible!</h1>
+
+    <div th:if="${error}"> 
+      Unable to validate your login! Or value entered is not valid!
+    </div>
+
+
+    <p>Today's multiplication is...</p>
+    <p><span th:text="${value1}"></span> * <span th:text="${value2}"></span></p>
+    <p>Time is ticking! Enter the result!</p>
+    <!-- tag::thAction[] -->
+    <form method="POST" th:action="@{/play/outcome}" id="loginForm">
+    <!-- end::thAction[] -->
+      <label for="username">Username: </label>
+      <input type="text" name="username" id="username" /><br/>
+
+      <label for="inserted_value">Insert value NOW: </label>
+      <input type="text" name="inserted_value" id="inserted_value" /><br/>
+
+      <input type="submit" value="Answer!"/>
+    </form>
+  </body>
+</html>

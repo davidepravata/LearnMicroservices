@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>TODAY'S RESULT!</title>
+    <link rel="stylesheet" th:href="@{/style.css}"></link>
+</head>
+
+<body>
+<h2>TODAY'S RESULT!</h2>
+<p>Did you win or lose? Let's find out!</p>
+<br/>
+<br/>
+<br/>
+
+
+<p><span th:text="${username}"></span>'answer was: <span th:text="${outcome}"></span></p>
+<br/>
+
+<table style="border-color: FFFFFF; background-color: #a3edff;">
+    <tbody>
+    <tr>
+        <td><a href="../play">Want to try again?</a> &nbsp;</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
