@@ -1,6 +1,6 @@
 package personal.davide.domain;
 
-public class Multiplication {
+public final class Multiplication {
 
     private int factorA;
     private int factorB;
@@ -10,7 +10,6 @@ public class Multiplication {
         this.factorA = factorA;
         this.factorB = factorB;
         this.result = factorA * factorB;
-
     }
 
     public int getFactorA() {

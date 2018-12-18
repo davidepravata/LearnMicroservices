@@ -1,17 +1,18 @@
 package personal.davide.controller.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import personal.davide.domain.JSon;
 import personal.davide.domain.Multiplication;
+import personal.davide.domain.MultiplicationResultAttempt;
+import personal.davide.domain.User;
 import personal.davide.service.MultiplicationService;
 
 import java.util.HashMap;
 
 @RestController
+@RequestMapping(path="/multiplication",produces="application/json")
+@CrossOrigin(origins="*")
 public class MultiplicationControllerRest {
 
     MultiplicationService multiplicationService;
@@ -33,39 +34,30 @@ public class MultiplicationControllerRest {
         return json.getJSonFromMap(multiplicationAsJson);
     }
 
-    @GetMapping(path = "/checkUser")
-    public String showMultiplicationAndLogin(Model model) {
-        model.addAttribute("value1", multiplication.getFactorA());
-        model.addAttribute("value2",multiplication.getFactorB());
-        model.addAttribute("result",multiplication.getResult());
-        return "login_question";
+    @GetMapping(path = "/checkUser", produces = "application/json")
+    public String checkUser(@RequestParam(value = "username") String username) {
+        User user = new User(username, 0);
+        HashMap<String,String> userAsJson = new HashMap<>();
+        userAsJson.put("user",user.toString());
+        JSon json = new JSon();
+        return json.getJSonFromMap(userAsJson);
     }
 
-    @PostMapping("/verifyMultiplication")
-    public String showResult(Model model, @ModelAttribute(value = "inserted_value") String inserted_value, @ModelAttribute(value="username") String username) {
-        boolean error=false;
-        if (StringUtils.isEmpty(inserted_value) || StringUtils.isEmpty(username)) {
-            error = true;
-            model.addAttribute("error", error);
-        }
+    @PostMapping(path="/verifyMultiplication", produces = "application/json")
+    public String verifyMultiplication( @RequestParam(value = "inserted_value") String inserted_value, @RequestParam(value="username") String username) {
+        User user = new User(username, 0);
+        MultiplicationResultAttempt multiplicationResultAttempt = new MultiplicationResultAttempt(user, multiplication,  Integer.parseInt(inserted_value));
+        HashMap<String,String> multiplicationResultAttemptAsJson = new HashMap<>();
+        multiplicationResultAttemptAsJson.put("user",user.toString());
+        multiplicationResultAttemptAsJson.put("multiplication",multiplication.toString());
+        multiplicationResultAttemptAsJson.put("inserted_value", inserted_value);
 
-        int iInsertedValue = 0;
-        try {
-            iInsertedValue = Integer.parseInt(inserted_value);
-        } catch (NumberFormatException nfe) {
-            error = true;
-            model.addAttribute("error", error);
+        if(multiplicationResultAttempt.getAttempt() == multiplicationResultAttempt.getMultiplication().getResult()) {
+            multiplicationResultAttemptAsJson.put("result", "SUCCESS");
+        } else {
+            multiplicationResultAttemptAsJson.put("result", "FAILURE");
         }
-
-        if(!error) {
-            model.addAttribute("username",username);
-            if (iInsertedValue == multiplication.getResult()) {
-                model.addAttribute("outcome", "success!!!");
-            } else {
-                model.addAttribute("outcome", "FAILURE!");
-            }
-        }
-
-        return "result_view";
+        JSon json = new JSon();
+        return json.getJSonFromMap(multiplicationResultAttemptAsJson);
     }
 }
