@@ -1,12 +1,10 @@
-package personal.davide.multiplication;
+package personal.davide.service;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import personal.davide.domain.Multiplication;
-import personal.davide.service.MultiplicationServiceImpl;
-import personal.davide.service.RandomGeneratorService;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.BDDMockito.given;

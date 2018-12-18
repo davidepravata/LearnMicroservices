@@ -1,9 +1,9 @@
-package personal.davide.multiplication;
+package personal.davide.service;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
-import personal.davide.service.RandomGeneratorServiceImpl;
+
 import static junit.framework.Assert.assertTrue;
 
 public class RandomGeneratorServiceImplTest {

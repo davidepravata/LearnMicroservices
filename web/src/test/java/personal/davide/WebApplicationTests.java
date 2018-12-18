@@ -1,4 +1,4 @@
-package personal.davide.web;
+package personal.davide;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
