@@ -7,7 +7,7 @@ import personal.davide.domain.Multiplication;
 @Service
 public class MultiplicationServiceImpl implements MultiplicationService {
 
-    private RandomGeneratorService randomGeneratorService;
+    RandomGeneratorService randomGeneratorService;
 
     @Autowired
     public MultiplicationServiceImpl(RandomGeneratorService randomGeneratorService) {
